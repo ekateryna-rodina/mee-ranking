@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import CreateLibrary from "./components/CreateLibrary";
+import Ranking from "./components/Ranking";
 
 function App() {
+  const [libraryItems, setLibraryItems] = useState<string[]>([]);
+  const [startRanking, setStartRanking] = useState<Boolean>(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {!startRanking && (
+        <CreateLibrary
+          libraryItems={libraryItems}
+          setLibraryItems={setLibraryItems}
+          setStartRanking={setStartRanking}
+        />
+      )}
+      {startRanking && <Ranking libraryItems={libraryItems} />}
+    </>
   );
 }
 
