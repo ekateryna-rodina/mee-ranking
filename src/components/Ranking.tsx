@@ -172,22 +172,13 @@ const Ranking = (props: RankingProps) => {
   };
 
   useEffect(() => {
-    // let set = [
-    //   "Tom Cruise",
-    //   "Tom Hanks",
-    //   "Leonardo DiCaprio",
-    //   "One more Actor",
-    //   "One more Actor1",
-    //   "One more Actor2",
-    //   "Tom Cruise1",
-    //   "Tom Cruise2",
-    // ];
     const pairsGenerated = getPairs(libraryItems);
     setPairs(pairsGenerated);
     setCombinationsCount(pairsGenerated.length);
     getNextPairHandler();
     const rankingMap = setRankingMap(libraryItems);
     setRankingResult(rankingMap);
+    // eslint-disable-next-line
   }, [libraryItems]);
 
   useEffect(() => {
@@ -201,6 +192,7 @@ const Ranking = (props: RankingProps) => {
       console.log(`new rank of ${winner} is ${newRank}`);
       setRankingResult({ ...rankingResult, [winner]: newRank });
     }
+    // eslint-disable-next-line
   }, [pairChosen]);
   useEffect(() => {
     console.log(rankingResult);
