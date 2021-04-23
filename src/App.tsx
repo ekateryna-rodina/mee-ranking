@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Provider } from "react-redux";
 import CreateLibrary from "./components/CreateLibrary";
 import Ranking from "./components/Ranking";
 import Result from "./components/Result";
+import store from "./state/store";
 
 function App() {
   const [libraryItems, setLibraryItems] = useState<[]>([]);
@@ -11,7 +13,7 @@ function App() {
   const [createLibrary, setCreateLibrary] = useState<Boolean>(true);
 
   return (
-    <>
+    <Provider store={store}>
       <div>learn react</div>
       {createLibrary && (
         <CreateLibrary
@@ -24,7 +26,7 @@ function App() {
         <Ranking libraryItems={libraryItems} setShowResult={setShowResult} />
       )}
       {showResult && <Result rankingResult={rankingResult} />}
-    </>
+    </Provider>
   );
 }
 

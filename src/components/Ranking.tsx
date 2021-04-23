@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { AppState } from "../state/store";
 import ShuffledArray from "../utils/arrayHelpers";
 import Cards from "./Cards";
 
@@ -29,6 +31,8 @@ const Ranking = (props: RankingProps) => {
   const [itemChosen, setItemChosen] = useState<number>(-1);
   const { libraryItems } = props;
   const [rankingResult, setRankingResult] = useState<{ [key: string]: {} }>({});
+  const ranking = useAppSelector((state: AppState) => state.ranking);
+  const dispatch = useAppDispatch();
   const itemChosenHandler = (item: number) => {
     const newIndex = index + 1;
     setIndex(newIndex);
@@ -47,7 +51,7 @@ const Ranking = (props: RankingProps) => {
     const looser = items[Number(Boolean(!itemChosen))];
 
     const newRankingResult = {
-      ...rankingResult,
+      // ...rankingResult,
       [winner]: { ...rankingResult[winner], [looser]: 1 },
       [looser]: { ...rankingResult[looser], [winner]: 0 },
     };
@@ -73,7 +77,6 @@ const Ranking = (props: RankingProps) => {
   }, [index]);
   return (
     <>
-      {console.log(items)}
       {items?.length && (
         <Cards items={items} setItemChosen={itemChosenHandler} />
       )}
