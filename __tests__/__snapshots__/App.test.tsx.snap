@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders the heading 1`] = `ShallowWrapper {}`;
-
-exports[`should generate a snapshot for app component 1`] = `
-<DocumentFragment>
-  <div />
-</DocumentFragment>
-`;

@@ -10,6 +10,19 @@
       "request": "launch",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceRoot}/src"
+    },
+    {
+      "name": "Debug CRA Tests",
+      "type": "node",
+      "request": "launch",
+      "port": 9229,
+      "runtimeExecutable": "${workspaceRoot}/src/node_modules/.bin/react-scripts",
+      "runtimeArgs": ["--inspect-brk", "test"],
+      "args": ["--runInBand", "--no-cache", "--env=jsdom"],
+      "cwd": "${workspaceRoot}/src",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

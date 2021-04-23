@@ -4,7 +4,7 @@ import Ranking from "./components/Ranking";
 import Result from "./components/Result";
 
 function App() {
-  const [libraryItems, setLibraryItems] = useState<string[]>([]);
+  const [libraryItems, setLibraryItems] = useState<[]>([]);
   const [rankingResult, setRankingResult] = useState<{}>({});
   const [startRanking, setStartRanking] = useState<Boolean>(false);
   const [showResult, setShowResult] = useState<Boolean>(false);
@@ -12,6 +12,7 @@ function App() {
 
   return (
     <>
+      <div>learn react</div>
       {createLibrary && (
         <CreateLibrary
           libraryItems={libraryItems}
@@ -20,12 +21,7 @@ function App() {
         />
       )}
       {startRanking && (
-        <Ranking
-          libraryItems={libraryItems}
-          setShowResult={setShowResult}
-          setRankingResult={setRankingResult}
-          rankingResult={rankingResult}
-        />
+        <Ranking libraryItems={libraryItems} setShowResult={setShowResult} />
       )}
       {showResult && <Result rankingResult={rankingResult} />}
     </>
