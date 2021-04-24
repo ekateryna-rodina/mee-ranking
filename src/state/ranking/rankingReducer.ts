@@ -6,13 +6,15 @@ const initialState: IRankingMap = {};
 
 export const rankingReducer = (
   state = initialState,
-  action: PayloadAction<IRankingMap>
+  action: PayloadAction<string[]>
 ) => {
+  //   const [winner, looser] = action.payload;
   switch (action.type) {
     case UPDATE_RANKING_MAP:
       return {
         ...state,
-        something: action.payload,
+        // [winner]: { ...state[winner], [looser]: 1 },
+        // [looser]: { ...state[looser], [winner]: 0 },
       };
     default:
       return state;

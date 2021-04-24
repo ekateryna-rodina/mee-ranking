@@ -1,7 +1,8 @@
 export const UPDATE_RANKING_MAP = "UPDATE_RANKING_MAP";
 
-export interface IUpdateRanking {
+export interface IUpdateRankingAction {
   type: typeof UPDATE_RANKING_MAP;
+  payload: string[];
 }
 
-export type RankingActionTypes = IUpdateRanking;
+export type RankingActionTypes = IUpdateRankingAction;

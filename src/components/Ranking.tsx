@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { updateRankingMap } from "../state/ranking/rankingActions";
 import { AppState } from "../state/store";
 import ShuffledArray from "../utils/arrayHelpers";
 import Cards from "./Cards";
@@ -31,8 +32,8 @@ const Ranking = (props: RankingProps) => {
   const [itemChosen, setItemChosen] = useState<number>(-1);
   const { libraryItems } = props;
   const [rankingResult, setRankingResult] = useState<{ [key: string]: {} }>({});
-  const ranking = useAppSelector((state: AppState) => state.ranking);
-  const dispatch = useAppDispatch();
+  const ranking = useSelector((state: AppState) => state.ranking);
+  const dispatch = useDispatch();
   const itemChosenHandler = (item: number) => {
     const newIndex = index + 1;
     setIndex(newIndex);
@@ -50,25 +51,28 @@ const Ranking = (props: RankingProps) => {
     const winner = items[itemChosen];
     const looser = items[Number(Boolean(!itemChosen))];
 
-    const newRankingResult = {
-      // ...rankingResult,
-      [winner]: { ...rankingResult[winner], [looser]: 1 },
-      [looser]: { ...rankingResult[looser], [winner]: 0 },
-    };
-    return newRankingResult;
+    // const newRankingResult = {
+    //   // ...rankingResult,
+    //   [winner]: { ...rankingResult[winner], [looser]: 1 },
+    //   [looser]: { ...rankingResult[looser], [winner]: 0 },
+    // };
+    return [winner, looser];
   };
 
   useEffect(() => {
     setNextItems();
   }, [rankingResult]);
   useEffect(() => {
+    console.log("item chosen");
     if (itemChosen !== -1) {
-      const newRanking = newRankingResult();
-      setRankingResult(newRanking);
+      // const newRanking = newRankingResult();
+      // setRankingResult(newRanking);
+      const newRankingArgs = newRankingResult();
+      console.log(newRankingArgs);
+      dispatch(updateRankingMap(newRankingArgs));
     }
     // eslint-disable-next-line
   }, [itemChosen]);
-  useEffect(() => {}, [rankingResult]);
   useEffect(() => {
     if (index > 1) {
       setNextItems();
@@ -76,140 +80,12 @@ const Ranking = (props: RankingProps) => {
     // eslint-disable-next-line
   }, [index]);
   return (
-    <>
+    <div>
       {items?.length && (
         <Cards items={items} setItemChosen={itemChosenHandler} />
       )}
-    </>
+    </div>
   );
 };
 
 export default Ranking;
-
-// import React, { useEffect, useState } from "react";
-// import { IRankingMap } from "../models/IRankingMap";
-// import ShuffledArray from "../utils/arrayHelpers";
-// let shuffledItems: string[][] = [];
-// interface RankingProps {
-//   libraryItems: string[];
-//   setShowResult?: Function;
-//   setRankingResult: Function;
-//   rankingResult: IRankingMap;
-// }
-// const createShuffledPairs = (libraryItems: string[]) => {
-//   const pairs: string[][] = [];
-//   for (let i = 0; i < libraryItems.length; i++) {
-//     for (let j = i + 1; j < libraryItems.length; j++) {
-//       pairs.push([libraryItems[i], libraryItems[j]]);
-//     }
-//   }
-
-//   shuffledItems = new ShuffledArray(pairs).shuffle();
-// };
-// function* generatePair(shuffledItems: string[][]) {
-//   for (let pair of shuffledItems) {
-//     yield pair;
-//   }
-// }
-// // const pairGenerator: Generator<string[]> = generatePair(shuffledItems);
-
-// const Ranking = (props: RankingProps) => {
-//   const [pair, setPair] = useState<string[]>([]);
-//   const [pairs, setPairs] = useState<string[][]>([]);
-//   const [pairIndex, setPairIndex] = useState<number>(0);
-//   const [combinationsCount, setCombinationsCount] = useState<number>();
-//   const [pairChosen, setPairChosen] = useState<number>(-1);
-//   const {
-//     libraryItems,
-//     setShowResult,
-//     setRankingResult,
-//     rankingResult,
-//   } = props;
-
-//   const getNextPair = () => {
-//     console.log(`Index ${pairIndex}`);
-//     console.log(`Combinations ${combinationsCount}`);
-//     if (pairIndex === combinationsCount) {
-//       console.log("");
-//       // setShowResult(true);
-//     }
-
-//     setPair(pairs[pairIndex]);
-//     setPairIndex(pairIndex + 1);
-//   };
-//   const vote = () => {
-//     if (pairChosen === -1) {
-//       return;
-//     }
-//     const winner = pair[pairChosen];
-//     const looser = pair[Number(Boolean(!pairChosen))];
-
-//     setRankingResult({
-//       ...rankingResult,
-//       [winner]: { ...rankingResult[winner], [looser]: 1 },
-//       [looser]: { ...rankingResult[looser], [winner]: 0 },
-//     });
-//   };
-//   const voteAndGetNextPairHandler = () => {
-//     vote();
-//     getNextPair();
-//   };
-//   const setPairChosenHandler = (winIndex: number) => {
-//     setPairChosen(-1);
-//     setPairChosen(winIndex);
-//   };
-//   const setRankingMap = (set: string[]) => {
-//     let rankingMap: IRankingMap = {};
-//     for (let i of set) {
-//       rankingMap[i] = {};
-//     }
-
-//     return rankingMap;
-//   };
-
-//   useEffect(() => {
-//     // createShuffledPairs(libraryItems);
-//     // const pair: string[] = pairGenerator.next().value;
-//     // setPair(pair);
-//     const rankingMap = setRankingMap(libraryItems);
-//     setRankingResult(rankingMap);
-//     // eslint-disable-next-line
-//   }, []);
-//   useEffect(() => {
-//     if (pairs.length > 0) {
-//       setCombinationsCount(pairs.length);
-//       // setPair(pairGenerator.next().value);
-//       // setPairIndex(pairIndex + 1);
-//     }
-//     // getNextPair();
-//     // eslint-disable-next-line
-//   }, [pairs]);
-
-//   useEffect(() => {
-//     console.log(rankingResult);
-//   }, [rankingResult]);
-//   return (
-//     <div>
-//       <span data-testid="firstItem" onClick={() => setPairChosenHandler(0)}>
-//         Jeff
-//       </span>
-//       {pair && (
-//         <div>
-//           <span data-testid="firsItem" onClick={() => setPairChosenHandler(0)}>
-//             {pair[0]}
-//           </span>
-//           {"    "}
-//           <span
-//             data-testid="secondItem"
-//             onClick={() => setPairChosenHandler(1)}
-//           >
-//             {pair[1]}
-//           </span>
-//         </div>
-//       )}
-//       <button onClick={voteAndGetNextPairHandler}>Next!</button>
-//     </div>
-//   );
-// };
-
-// export default Ranking;
