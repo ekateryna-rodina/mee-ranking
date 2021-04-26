@@ -60,20 +60,19 @@ const Result = () => {
   const state = useSelector((state: AppState) => state.ranking);
   const { rankingMap } = state;
   const resultsLength = rankingMap ? Object.keys(rankingMap).length : 0;
-  const [result, setResult] = useState<null[] | string[]>(
-    Array(resultsLength).fill(null)
-  );
+  const [result, setResult] = useState<string[]>(Array(resultsLength).fill(""));
 
   useEffect(() => {
     console.log(rankingMap);
   }, [rankingMap]);
   return (
     <div data-testid="resultsList">
-      {result.map((item: string | null, i: number) => (
-        <p key={`${item}_${i}`} data-testid="item-test-id">
-          {item}
-        </p>
-      ))}
+      {result[0] &&
+        result.map((item: string | null, i: number) => (
+          <p key={`${item}_${i}`} data-testid="item-test-id">
+            {item}
+          </p>
+        ))}
     </div>
   );
 };

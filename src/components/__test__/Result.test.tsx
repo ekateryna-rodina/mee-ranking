@@ -13,8 +13,10 @@ beforeEach(() => {
   store = mockStore({
     ranking: {
       rankingMap: {
-        Potter: { Harry: 1 },
-        Harry: { Potter: 0 },
+        Harry: { Potter: 1, Jeff: 1, Kate: 1 },
+        Potter: { Harry: 0, Jeff: 0, Kate: 0 },
+        Jeff: { Potter: 1, Kate: 0, Harry: 0 },
+        Kate: { Jeff: 1, Potter: 1, Harry: 0 },
       },
     },
   });
