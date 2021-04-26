@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRankingMap } from "../state/ranking/rankingActions";
+import { showNewOptionsAction } from "../state/selection/selectionActions";
 import { AppState } from "../state/store";
 import ShuffledArray from "../utils/arrayHelpers";
 import Cards from "./Cards";
@@ -27,65 +27,26 @@ function generator(libraryItems: string[]) {
 }
 
 const Ranking = (props: RankingProps) => {
-  const [items, setItems] = useState<string[]>([]);
-  const [index, setIndex] = useState<number>(1);
-  const [itemChosen, setItemChosen] = useState<number>(-1);
   const { libraryItems } = props;
-  const [rankingResult, setRankingResult] = useState<{ [key: string]: {} }>({});
+  const selection = useSelector((state: AppState) => state.selection);
   const ranking = useSelector((state: AppState) => state.ranking);
+  const { rankingMap } = ranking;
+  const { options } = selection;
   const dispatch = useDispatch();
-  const itemChosenHandler = (item: number) => {
-    const newIndex = index + 1;
-    setIndex(newIndex);
-    setItemChosen(-1);
-    setItemChosen(item);
-  };
+
   pairsGenerator = pairsGenerator ?? generator(libraryItems);
 
-  const setNextItems = () => {
+  const getNextItems = () => {
     const pair: string[] = pairsGenerator?.next().value as string[];
-    setItems(pair);
-  };
-
-  const newRankingResult = () => {
-    const winner = items[itemChosen];
-    const looser = items[Number(Boolean(!itemChosen))];
-
-    // const newRankingResult = {
-    //   // ...rankingResult,
-    //   [winner]: { ...rankingResult[winner], [looser]: 1 },
-    //   [looser]: { ...rankingResult[looser], [winner]: 0 },
-    // };
-    return [winner, looser];
+    return pair;
   };
 
   useEffect(() => {
-    setNextItems();
-  }, [rankingResult]);
-  useEffect(() => {
-    console.log("item chosen");
-    if (itemChosen !== -1) {
-      // const newRanking = newRankingResult();
-      // setRankingResult(newRanking);
-      const newRankingArgs = newRankingResult();
-      console.log(newRankingArgs);
-      dispatch(updateRankingMap(newRankingArgs));
-    }
+    const pair = getNextItems();
+    dispatch(showNewOptionsAction(pair));
     // eslint-disable-next-line
-  }, [itemChosen]);
-  useEffect(() => {
-    if (index > 1) {
-      setNextItems();
-    }
-    // eslint-disable-next-line
-  }, [index]);
-  return (
-    <div>
-      {items?.length && (
-        <Cards items={items} setItemChosen={itemChosenHandler} />
-      )}
-    </div>
-  );
+  }, [rankingMap]);
+  return <div>{options && <Cards items={options} />}</div>;
 };
 
 export default Ranking;

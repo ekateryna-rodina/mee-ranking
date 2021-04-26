@@ -29,11 +29,11 @@ test("shows voting items on the page and changes pair on click", () => {
     ["Kate", "Potter"],
   ];
 
+  fireEvent.click(screen.getByTestId("item_0"));
   while (all.length > 1) {
     //   if only 1 pair is left next click will result undefined by design
     expect(screen.getByTestId("item_0")).toBeInTheDocument();
     expect(screen.getByTestId("item_1")).toBeInTheDocument();
-    screen.debug();
     let textContentInput = [
       screen.getByTestId("item_0").textContent as string,
       screen.getByTestId("item_1").textContent as string,
