@@ -12,7 +12,7 @@ function getOrderedItems(graph: RankGraph) {
   const nodesWithNoPrereq = graph.nodes.filter((n: ItemNode) => !n.numOfWins);
   while (nodesWithNoPrereq.length) {
     const node = nodesWithNoPrereq.pop() as ItemNode;
-    ordered.push(node.title);
+    ordered.unshift(node.title);
     removeDeps(node, nodesWithNoPrereq);
   }
   const graphHasEdges = graph.nodes.some((n: ItemNode) => n.numOfWins);

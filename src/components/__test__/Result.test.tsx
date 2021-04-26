@@ -18,6 +18,15 @@ beforeEach(() => {
         Jeff: { Potter: 1, Kate: 0, Harry: 0 },
         Kate: { Jeff: 1, Potter: 1, Harry: 0 },
       },
+      items: ["Jeff", "Kate", "Harry", "Potter"],
+      deps: [
+        ["Potter", "Harry"],
+        ["Kate", "Harry"],
+        ["Jeff", "Kate"],
+        ["Jeff", "Harry"],
+        ["Potter", "Kate"],
+        ["Potter", "Jeff"],
+      ],
     },
   });
   return render(
@@ -32,7 +41,7 @@ test("renders the component", () => {
 });
 
 test("orders correctly results from ranking map", () => {
-  const ordered = ["Potter", "Harry"];
+  const ordered = ["Harry", "Kate", "Jeff", "Potter"];
   const allItems = screen.getAllByTestId("item-test-id");
   allItems.forEach((name, index) => {
     expect(name.textContent).toBe(ordered[index]);

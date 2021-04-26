@@ -3,8 +3,12 @@ import { UPDATE_RANKING_MAP } from "./models/actions";
 import { IRankingMap } from "./models/rankingMap";
 import { IVote } from "./models/vote";
 let map: IRankingMap = {};
+let deps: string[][] = [];
+let items: string[] = [];
 const initialState = {
   rankingMap: map,
+  items,
+  deps,
 };
 
 export const rankingReducer = (
@@ -19,9 +23,12 @@ export const rankingReducer = (
         [winner]: { ...state.rankingMap[winner], [looser]: 1 },
         [looser]: { ...state.rankingMap[looser], [winner]: 0 },
       };
-      console.log(newRankingMap);
+      const items = newRankingMap ? Object.keys(newRankingMap) : [];
+      state.deps.push([looser, winner]);
       return {
+        ...state,
         rankingMap: newRankingMap,
+        items,
       };
     default:
       return state;
