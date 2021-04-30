@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import CreateLibrary from "./components/CreateLibrary";
 import Ranking from "./components/Ranking";
-import Result from "./components/Result";
 
 function App() {
   const [libraryItems, setLibraryItems] = useState<[]>([]);
@@ -10,18 +8,19 @@ function App() {
   const [createLibrary, setCreateLibrary] = useState<Boolean>(true);
 
   return (
-    <div>
-      {createLibrary && (
+    <div className="h-100">
+      {/* {createLibrary && (
         <CreateLibrary
           libraryItems={libraryItems}
           setLibraryItems={setLibraryItems}
           setStartRanking={setStartRanking}
         />
-      )}
-      {startRanking && (
+      )} */}
+      {/* {startRanking && (
         <Ranking libraryItems={libraryItems} setShowResult={setShowResult} />
-      )}
-      <Result />
+      )} */}
+      <Ranking libraryItems={libraryItems} setShowResult={setShowResult} />
+      {/* <Result /> */}
     </div>
   );
 }

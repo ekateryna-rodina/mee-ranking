@@ -1,0 +1,23 @@
+body {
+  height: 100vh;
+}
+.rounded-card {
+  border-radius: 1rem;
+
+  img {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+}
+.border-none {
+  border: none;
+}
+// RANKING PAGE
+#ranking {
+  width: 80%;
+  //   height: 80%;
+  margin: auto;
+}
+#cards-section {
+  padding-top: 0px;
+}

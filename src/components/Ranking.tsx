@@ -46,7 +46,16 @@ const Ranking = (props: RankingProps) => {
     dispatch(showNewOptionsAction(pair));
     // eslint-disable-next-line
   }, [rankingMap]);
-  return <div>{options && <Cards items={options} />}</div>;
+  return (
+    <div className="h-100 bg-gray d-flex align-items-center">
+      <div className="container">
+        <div id="ranking">
+          <Cards items={options} />
+        </div>
+      </div>
+    </div>
+  );
+  // return <div>{options && <Cards items={options} />}</div>;
 };
 
 export default Ranking;

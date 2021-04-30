@@ -14,24 +14,31 @@ const CreateLibrary = (props: CreateLibraryProps) => {
   };
   return (
     <>
-      <input
-        type="text"
-        value={item}
-        data-testid="itemInput"
-        onChange={(e) => setItem(e.target.value)}
-      />
-      <button data-testid="addToListButton" onClick={addToListHandler}>
-        Add
-      </button>
+      <div className="form-group">
+        <input
+          className="form-control"
+          type="text"
+          value={item}
+          data-testid="itemInput"
+          onChange={(e) => setItem(e.target.value)}
+        />
+        <button data-testid="addToListButton" onClick={addToListHandler}>
+          Add
+        </button>
+      </div>
 
       {libraryItems.length === 0 && (
         <div data-testid="noItemsPlaceholder">
           There are no items in the list
         </div>
       )}
-      <ul data-testid="votingItemsContainer">
+      <ul data-testid="votingItemsContainer" className="list-unstyled">
         {libraryItems.map((item) => (
-          <li data-testid="itemL" key={item as string}>
+          <li
+            data-testid="itemL"
+            key={item as string}
+            className="list-inline-item"
+          >
             {item}
           </li>
         ))}
@@ -45,3 +52,6 @@ const CreateLibrary = (props: CreateLibraryProps) => {
 };
 
 export default CreateLibrary;
+
+// mx-auto
+// w-25 w-50

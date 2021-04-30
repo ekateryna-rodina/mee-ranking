@@ -9,6 +9,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.16",
+    "dotenv": "^8.2.0",
+    "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
@@ -22,7 +24,8 @@
     "build": "tsc",
     "eject": "react-scripts eject",
     "clearjest": "jest --clearCache",
-    "test": "jest --watchAll --detectOpenHandles"
+    "test": "jest --watchAll --detectOpenHandles",
+    "scss": "node-sass -rw --watch src/scss -o public/css"
   },
   "eslintConfig": {
     "extends": [
