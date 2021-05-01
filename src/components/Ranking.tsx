@@ -4,6 +4,7 @@ import { showNewOptionsAction } from "../state/selection/selectionActions";
 import { AppState } from "../state/store";
 import ShuffledArray from "../utils/arrayHelpers";
 import Cards from "./Cards";
+import ControlButtons from "./ControlButtons";
 
 let pairsGenerator: Generator<string[]> | null = null;
 interface RankingProps {
@@ -47,10 +48,18 @@ const Ranking = (props: RankingProps) => {
     // eslint-disable-next-line
   }, [rankingMap]);
   return (
-    <div className="h-100 bg-gray d-flex align-items-center">
-      <div className="container">
+    <div className="bg-gray">
+      <div className="container d-flex-column">
         <div id="ranking">
+          <h1 className="text-uppercase mb-5">Which pixar movie is better?</h1>
           <Cards items={options} />
+        </div>
+        <div
+          id="controls-section"
+          className="d-flex justify-content-between align-items-center"
+        >
+          <progress max="100" value="85"></progress>
+          <ControlButtons />
         </div>
       </div>
     </div>

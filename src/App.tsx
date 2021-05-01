@@ -8,7 +8,7 @@ function App() {
   const [createLibrary, setCreateLibrary] = useState<Boolean>(true);
 
   return (
-    <div className="h-100">
+    <div style={{ height: "100%" }}>
       {/* {createLibrary && (
         <CreateLibrary
           libraryItems={libraryItems}

@@ -1,2 +1,18 @@
 body {
-  background: #785; }
+  height: 100vh; }
+
+.rounded-card {
+  border-radius: 1rem; }
+  .rounded-card img {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem; }
+
+.border-none {
+  border: none; }
+
+#ranking {
+  width: 80%;
+  margin: auto; }
+
+#cards-section {
+  padding-top: 0px; }

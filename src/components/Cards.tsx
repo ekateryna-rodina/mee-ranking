@@ -16,7 +16,11 @@ const Cards = (props: CardsProps) => {
     dispatch(updateRankingMapAction({ winner, looser }));
   };
   return (
-    <div id="cards-section" className="row text-center">
+    // <div id="cards-section" className="row text-center">
+    <div
+      id="cards-section"
+      className="text-center d-flex justify-content-between"
+    >
       {/* {items &&
           items.map((item, index) => (
             <div
@@ -31,7 +35,7 @@ const Cards = (props: CardsProps) => {
             </div>
           ))} */}
 
-      <h1 className="text-uppercase mb-5">Which pixar movie is better?</h1>
+      {/* <h1 className="text-uppercase mb-5">Which pixar movie is better?</h1>
       <div className="col-md-6">
         <div className="card rounded-card w-50 mb-3 mx-auto my-auto border-none shadow-lg">
           <img src={pi1} alt="" className="img-fluid" />
@@ -49,6 +53,25 @@ const Cards = (props: CardsProps) => {
             <div className="card-title">
               <h3 className="display-8 text-uppercase">toy story</h3>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ); */}
+
+      <div className="card rounded-card mb-3 border-none shadow-lg">
+        <img src={pi1} alt="" className="img-fluid" />
+        <div className="card-body text-center">
+          <div className="card-title">
+            <h3 className="display-8 text-uppercase">finding nemo</h3>
+          </div>
+        </div>
+      </div>
+      <div className="card rounded-card mb-3  border-none shadow-lg">
+        <img src={pi2} alt="" className="img-fluid" />
+        <div className="card-body text-center">
+          <div className="card-title">
+            <h3 className="display-8 text-uppercase">toy story</h3>
           </div>
         </div>
       </div>
