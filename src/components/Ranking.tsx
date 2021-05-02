@@ -48,15 +48,18 @@ const Ranking = (props: RankingProps) => {
     // eslint-disable-next-line
   }, [rankingMap]);
   return (
-    <div className="bg-gray">
-      <div className="container d-flex-column">
+    <div
+      className="bg-gray d-flex d-flex-column justify-content-center align-items-center text-center"
+      id="ranking-page"
+    >
+      <div className="container">
         <div id="ranking">
-          <h1 className="text-uppercase mb-5">Which pixar movie is better?</h1>
+          <h2 className="text-uppercase mb-5">Which pixar movie is better?</h2>
           <Cards items={options} />
         </div>
         <div
           id="controls-section"
-          className="d-flex justify-content-between align-items-center"
+          className="d-flex justify-content-between align-items-center mt-5"
         >
           <progress max="100" value="85"></progress>
           <ControlButtons />

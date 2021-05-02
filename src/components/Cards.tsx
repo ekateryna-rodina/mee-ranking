@@ -59,7 +59,7 @@ const Cards = (props: CardsProps) => {
     </div>
   ); */}
 
-      <div className="card rounded-card mb-3 border-none shadow-lg">
+      <div className="card rounded-card border-none shadow-lg">
         <img src={pi1} alt="" className="img-fluid" />
         <div className="card-body text-center">
           <div className="card-title">
@@ -67,7 +67,7 @@ const Cards = (props: CardsProps) => {
           </div>
         </div>
       </div>
-      <div className="card rounded-card mb-3  border-none shadow-lg">
+      <div className="card rounded-card border-none shadow-lg">
         <img src={pi2} alt="" className="img-fluid" />
         <div className="card-body text-center">
           <div className="card-title">

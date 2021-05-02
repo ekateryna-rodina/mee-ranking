@@ -8,7 +8,7 @@ function App() {
   const [createLibrary, setCreateLibrary] = useState<Boolean>(true);
 
   return (
-    <div style={{ height: "100%" }}>
+    <div id="content" className="h-100">
       {/* {createLibrary && (
         <CreateLibrary
           libraryItems={libraryItems}
@@ -19,6 +19,13 @@ function App() {
       {/* {startRanking && (
         <Ranking libraryItems={libraryItems} setShowResult={setShowResult} />
       )} */}
+      {/* <div className="container h-100 d-flex d-flex-column justify-content-center align-items-center bg-danger">
+        <div style={{ height: "50%" }}>
+          <progress max="100" value="85"></progress>
+          <div>hello</div>
+        </div>
+      </div> */}
+
       <Ranking libraryItems={libraryItems} setShowResult={setShowResult} />
       {/* <Result /> */}
     </div>
