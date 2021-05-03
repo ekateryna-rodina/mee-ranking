@@ -6,13 +6,9 @@ import store from "../../state/store";
 import Ranking from "../Ranking";
 
 beforeEach(() => {
-  const setShowResultMock = jest.fn();
   render(
     <Provider store={store}>
-      <Ranking
-        libraryItems={["Jeff", "Kate", "Harry", "Potter"]}
-        setShowResult={setShowResultMock}
-      />
+      <Ranking libraryItems={["Jeff", "Kate", "Harry", "Potter"]} />
     </Provider>
   );
 });
@@ -44,4 +40,7 @@ test("shows voting items on the page and changes pair on click", () => {
     fireEvent.click(screen.getByTestId("item_0"));
   }
   expect(all.length).toBe(1);
+});
+test("progress bar is in document", () => {
+  expect(screen.getByRole("progress")).toBeInTheDocument();
 });

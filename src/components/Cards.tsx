@@ -1,7 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import pi2 from "../img/incredibles.png";
-import pi1 from "../img/nemo.png";
 import { updateRankingMapAction } from "../state/ranking/rankingActions";
 
 interface CardsProps {
@@ -15,6 +13,8 @@ const Cards = (props: CardsProps) => {
     const looser = items[Number(Boolean(!index))];
     dispatch(updateRankingMapAction({ winner, looser }));
   };
+  const card1Src = require("../img/incredibles.png").default;
+  const card2Src = require("../img/nemo.png").default;
   return (
     // <div id="cards-section" className="row text-center">
     <div
@@ -60,7 +60,7 @@ const Cards = (props: CardsProps) => {
   ); */}
 
       <div className="card rounded-card border-none shadow-lg">
-        <img src={pi1} alt="" className="img-fluid" />
+        <img src={card1Src} alt="" className="img-fluid" />
         <div className="card-body text-center">
           <div className="card-title">
             <h3 className="display-8 text-uppercase">finding nemo</h3>
@@ -68,7 +68,7 @@ const Cards = (props: CardsProps) => {
         </div>
       </div>
       <div className="card rounded-card border-none shadow-lg">
-        <img src={pi2} alt="" className="img-fluid" />
+        <img src={card2Src} alt="" className="img-fluid" />
         <div className="card-body text-center">
           <div className="card-title">
             <h3 className="display-8 text-uppercase">toy story</h3>

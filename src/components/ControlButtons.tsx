@@ -1,14 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { toggleResultAction } from "../state/controls/controlsActions";
 
 const ControlButtons = () => {
+  const dispach = useDispatch();
+  const handleResultToggle = () => {
+    dispach(toggleResultAction());
+  };
   return (
     <div className="d-inline-flex">
-      <a href="#results" className="btn btn-secondary rounded-circle">
+      <button className="btn btn-secondary rounded-circle">
         <i className="fas fa-cog"></i>
-      </a>
-      <a href="#results" className="btn btn-info rounded-circle">
+      </button>
+      <button
+        onClick={handleResultToggle}
+        className="btn btn-info rounded-circle"
+      >
         <i className="fas fa-trophy"></i>
-      </a>
+      </button>
     </div>
   );
 };

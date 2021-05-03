@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+html,
 body {
   height: 100vh; }
 
@@ -10,9 +15,76 @@ body {
 .border-none {
   border: none; }
 
-#ranking {
-  width: 80%;
+#ranking-page {
+  height: 100%; }
+  #ranking-page .container {
+    width: 55%; }
+
+#ranking,
+#controls-section {
+  width: 100%;
   margin: auto; }
 
 #cards-section {
   padding-top: 0px; }
+  #cards-section .card {
+    width: 18rem; }
+  #cards-section .card:hover {
+    cursor: pointer; }
+
+#controls-section button {
+  margin-left: 1rem; }
+
+#controls-section button:hover {
+  cursor: pointer; }
+
+progress {
+  border: 0;
+  background: #000;
+  border-radius: 80px;
+  width: 100%; }
+
+progress::-moz-progress-bar {
+  border-radius: 80px;
+  background: linear-gradient(to right, rgba(11, 113, 173, 0.8), #5a6aff); }
+
+progress::-webkit-progress-bar {
+  background: #000;
+  border-radius: 80px; }
+
+progress::-webkit-progress-value {
+  border-radius: 80px;
+  background: linear-gradient(to right, rgba(11, 113, 173, 0.8), #5a6aff); }
+
+.sliding-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 20rem;
+  transform: translateX(100%);
+  transition: 0.7s ease-out; }
+  .sliding-wrapper .sliding {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    padding: 1em; }
+
+.shown {
+  transform: translateX(0%); }
+
+#results h1 {
+  color: #fff; }
+
+#results h4 {
+  color: #18a3fc;
+  margin-bottom: 1rem; }
+
+.flex-fixed-width-item {
+  flex: 0 0 1em; }
+
+#resultItem {
+  width: 100%;
+  height: 2.5rem; }

@@ -9,7 +9,6 @@ import ControlButtons from "./ControlButtons";
 let pairsGenerator: Generator<string[]> | null = null;
 interface RankingProps {
   libraryItems: string[];
-  setShowResult?: Function;
 }
 
 function generator(libraryItems: string[]) {
