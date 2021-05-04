@@ -1,17 +1,19 @@
+import { ICard } from "../state/selection/models/card";
+
 class ShuffledArray extends Array {
-  items: string[][];
-  constructor(items: string[][]) {
+  items: ICard[][];
+  constructor(items: ICard[][]) {
     super();
     this.items = items;
   }
-  randomSwap(arr: Array<string>) {
+  randomSwap(arr: Array<ICard>) {
     const rnd = Math.floor(Math.random() * 2) + 1;
-    return rnd === 1 ? arr : [arr[1], arr[0]];
+    return rnd === 1 ? arr : arr.reverse();
   }
   shuffle() {
     let len = this.items.length;
     let random: number;
-    let temp: string[];
+    let temp: ICard[];
     while (len) {
       random = Math.floor(Math.random() * len--);
       temp = this.items[len];

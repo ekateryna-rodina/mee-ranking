@@ -3,10 +3,14 @@ import Ranking from "./components/Ranking";
 import Result from "./components/Result";
 
 function App() {
-  const [libraryItems, setLibraryItems] = useState<[]>([]);
+  // const [libraryItems, setLibraryItems] = useState<[]>([]);
   const [startRanking, setStartRanking] = useState<Boolean>(false);
   const [createLibrary, setCreateLibrary] = useState<Boolean>(true);
-
+  const libraryItems = [
+    { name: "nemo", imagePath: require("./img/nemo.png") },
+    { name: "incredibles", imagePath: require("./img/incredibles.png") },
+    { name: "toy-story", imagePath: require("./img/toy-story.jpg") },
+  ];
   return (
     <div id="content" className="h-100">
       {/* {createLibrary && (

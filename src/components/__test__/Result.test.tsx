@@ -13,20 +13,20 @@ beforeEach(() => {
   store = mockStore({
     ranking: {
       rankingMap: {
-        Harry: { Potter: 1, Jeff: 1, Kate: 1 },
-        Potter: { Harry: 0, Jeff: 0, Kate: 0 },
-        Jeff: { Potter: 1, Kate: 0, Harry: 0 },
-        Kate: { Jeff: 1, Potter: 1, Harry: 0 },
+        incredibles: { nemo: 0, toystory: 0 },
+        nemo: { incredibles: 1, toystory: 1 },
+        toystory: { incredibles: 1, nemo: 0 },
       },
-      items: ["Jeff", "Kate", "Harry", "Potter"],
+      items: ["incredibles", "nemo", "toystory"],
       deps: [
-        ["Potter", "Harry"],
-        ["Kate", "Harry"],
-        ["Jeff", "Kate"],
-        ["Jeff", "Harry"],
-        ["Potter", "Kate"],
-        ["Potter", "Jeff"],
+        ["incredibles", "nemo"],
+        ["incredibles", "toystory"],
+        ["nemo", "toystory"],
       ],
+    },
+    controls: {
+      showResult: true,
+      showSettings: false,
     },
   });
   return render(
@@ -41,7 +41,7 @@ test("renders the component", () => {
 });
 
 test("orders correctly results from ranking map", () => {
-  const ordered = ["Harry", "Kate", "Jeff", "Potter"];
+  const ordered = ["nemo", "toystory", "incredibles"];
   const allItems = screen.getAllByTestId("item-test-id");
   allItems.forEach((name, index) => {
     expect(name.textContent).toBe(ordered[index]);

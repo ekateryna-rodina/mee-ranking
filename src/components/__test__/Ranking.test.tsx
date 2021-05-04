@@ -8,7 +8,13 @@ import Ranking from "../Ranking";
 beforeEach(() => {
   render(
     <Provider store={store}>
-      <Ranking libraryItems={["Jeff", "Kate", "Harry", "Potter"]} />
+      <Ranking
+        libraryItems={[
+          { name: "incredibles", imagePath: "" },
+          { name: "nemo", imagePath: "" },
+          { name: "toy-story", imagePath: "" },
+        ]}
+      />
     </Provider>
   );
 });
@@ -17,12 +23,9 @@ const matchPair = (i: Array<string>, textContentInput: Array<string>) =>
   (i[0] === textContentInput[1] && i[1] === textContentInput[0]);
 test("shows voting items on the page and changes pair on click", () => {
   let all = [
-    ["Harry", "Potter"],
-    ["Jeff", "Kate"],
-    ["Kate", "Harry"],
-    ["Jeff", "Harry"],
-    ["Jeff", "Potter"],
-    ["Kate", "Potter"],
+    ["incredibles", "nemo"],
+    ["incredibles", "toy-story"],
+    ["nemo", "toy-story"],
   ];
 
   fireEvent.click(screen.getByTestId("item_0"));

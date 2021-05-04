@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemAction } from "../state/deck/deckActions";
+import { AppState } from "../state/store";
 
 interface CreateLibraryProps {
-  libraryItems: string[];
-  setLibraryItems: Function;
   setStartRanking: Function;
 }
 const CreateLibrary = (props: CreateLibraryProps) => {
-  const { libraryItems, setLibraryItems, setStartRanking } = props;
+  const { setStartRanking } = props;
   const [item, setItem] = useState("");
+  const dispatch = useDispatch();
+  const items = useSelector((state: AppState) => state.deck);
+  const itemsLength = Object.keys(items).length;
   const addToListHandler = (e: React.MouseEvent) => {
-    setLibraryItems([...libraryItems, item]);
+    dispatch(addItemAction({ name: item, imagePath: "" }));
     setItem("");
   };
   return (
@@ -27,13 +31,13 @@ const CreateLibrary = (props: CreateLibraryProps) => {
         </button>
       </div>
 
-      {libraryItems.length === 0 && (
+      {itemsLength === 0 && (
         <div data-testid="noItemsPlaceholder">
           There are no items in the list
         </div>
       )}
       <ul data-testid="votingItemsContainer" className="list-unstyled">
-        {libraryItems.map((item) => (
+        {Object.keys(items).map((item) => (
           <li
             data-testid="itemL"
             key={item as string}
@@ -44,7 +48,7 @@ const CreateLibrary = (props: CreateLibraryProps) => {
         ))}
       </ul>
 
-      {libraryItems.length >= 2 && (
+      {itemsLength >= 2 && (
         <button onClick={() => setStartRanking(true)}>Start ranking</button>
       )}
     </>

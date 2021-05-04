@@ -11,6 +11,7 @@ const ResultItem = (props: ResultItemProps) => {
   return (
     <div
       id="resultItem"
+      data-testid="item-test-id"
       className="d-flex justify-content-between align-items-center bg-white rounded mb-2 px-1"
     >
       <div className="d-flex d-flex-inline justify-content-start align-items-center">

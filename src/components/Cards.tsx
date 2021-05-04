@@ -1,80 +1,73 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { updateRankingMapAction } from "../state/ranking/rankingActions";
+import { ICard } from "../state/selection/models/card";
 
-interface CardsProps {
-  items: string[];
+interface ICardsProps {
+  items: ICard[];
 }
-const Cards = (props: CardsProps) => {
+interface ICardProps {
+  name: string;
+  imagePath: any;
+  index: string;
+  clickHandler: Function;
+}
+
+const Card = (props: ICardProps) => {
+  const { name, imagePath, index, clickHandler } = props;
+  const imageSrc = imagePath.default;
+  const cardChosenHandler = () => {
+    clickHandler(index);
+  };
+  return (
+    <div
+      className="card rounded-card border-none shadow-lg"
+      data-testId={`item_${index}`}
+      onClick={cardChosenHandler}
+    >
+      <img src={imageSrc} alt="" className="img-fluid" />
+      <div className="card-body text-center">
+        <div className="card-title">
+          <h3 className="display-8 text-uppercase">{name}</h3>
+        </div>
+      </div>
+    </div>
+  );
+};
+const Cards = (props: ICardsProps) => {
   const { items } = props;
   const dispatch = useDispatch();
   const setItemChosenHandler = (index: number) => {
-    const winner = items[index];
-    const looser = items[Number(Boolean(!index))];
+    console.log(index);
+    const winner = items[index].name;
+    const looser = items[Number(Boolean(!index))].name;
     dispatch(updateRankingMapAction({ winner, looser }));
   };
-  const card1Src = require("../img/incredibles.png").default;
-  const card2Src = require("../img/nemo.png").default;
   return (
-    // <div id="cards-section" className="row text-center">
     <div
       id="cards-section"
       className="text-center d-flex justify-content-between"
     >
-      {/* {items &&
-          items.map((item, index) => (
-            <div
-              className="card"
-              key={item}
-              data-testid={`item_` + index.toString()}
-              onClick={() => setItemChosenHandler(index)}
-            >
-              <div className="card-body">
-                <div className="card-title">{item}</div>
-              </div>
-            </div>
-          ))} */}
-
-      {/* <h1 className="text-uppercase mb-5">Which pixar movie is better?</h1>
-      <div className="col-md-6">
-        <div className="card rounded-card w-50 mb-3 mx-auto my-auto border-none shadow-lg">
-          <img src={pi1} alt="" className="img-fluid" />
-          <div className="card-body text-center">
-            <div className="card-title">
-              <h3 className="display-8 text-uppercase">finding nemo</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-6">
-        <div className="card rounded-card w-50 mb-3 mx-auto my-auto border-none shadow-lg">
-          <img src={pi2} alt="" className="img-fluid" />
-          <div className="card-body text-center">
-            <div className="card-title">
-              <h3 className="display-8 text-uppercase">toy story</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  ); */}
-
-      <div className="card rounded-card border-none shadow-lg">
-        <img src={card1Src} alt="" className="img-fluid" />
-        <div className="card-body text-center">
-          <div className="card-title">
-            <h3 className="display-8 text-uppercase">finding nemo</h3>
-          </div>
-        </div>
-      </div>
-      <div className="card rounded-card border-none shadow-lg">
-        <img src={card2Src} alt="" className="img-fluid" />
-        <div className="card-body text-center">
-          <div className="card-title">
-            <h3 className="display-8 text-uppercase">toy story</h3>
-          </div>
-        </div>
-      </div>
+      {items &&
+        items.map((item, index) => (
+          <Card
+            name={item.name}
+            imagePath={item.imagePath}
+            key={item.name}
+            index={index.toString()}
+            clickHandler={() => setItemChosenHandler(index)}
+          />
+          // <div
+          //   className="card"
+          //   key={item.name}
+          //   data-testid={`item_` + index.toString()}
+          //   onClick={() => setItemChosenHandler(index)}
+          // >
+          //   <div className="card-body">
+          //     <div className="card-title">{item}</div>
+          //   </div>
+          // </div>
+        ))}
     </div>
   );
 };

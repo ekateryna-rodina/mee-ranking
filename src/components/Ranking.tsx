@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ICard } from "../state/selection/models/card";
 import { showNewOptionsAction } from "../state/selection/selectionActions";
 import { AppState } from "../state/store";
 import ShuffledArray from "../utils/arrayHelpers";
 import Cards from "./Cards";
 import ControlButtons from "./ControlButtons";
 
-let pairsGenerator: Generator<string[]> | null = null;
+let pairsGenerator: Generator<ICard[]> | null = null;
 interface RankingProps {
-  libraryItems: string[];
+  libraryItems: ICard[];
 }
 
-function generator(libraryItems: string[]) {
+function generator(libraryItems: ICard[]) {
   let init = [];
   for (let i = 0; i < libraryItems.length; i++) {
     for (let j = i + 1; j < libraryItems.length; j++) {
@@ -28,6 +29,8 @@ function generator(libraryItems: string[]) {
 
 const Ranking = (props: RankingProps) => {
   const { libraryItems } = props;
+  console.log("this is items");
+  console.log(libraryItems);
   const selection = useSelector((state: AppState) => state.selection);
   const ranking = useSelector((state: AppState) => state.ranking);
   const { rankingMap } = ranking;

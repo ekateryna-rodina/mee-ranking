@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { IDeck } from "../state/deck/models/deck";
 import { AppState } from "../state/store";
 import { sort } from "../utils/topologicalSort";
 import ResultItem from "./ResultItem";
@@ -8,29 +9,39 @@ const Result = () => {
   const state = useSelector((state: AppState) => state.ranking);
   const { rankingMap, items, deps } = state;
   const resultsLength = rankingMap ? Object.keys(rankingMap).length : 0;
-  const [result, setResult] = useState<string[]>(Array(resultsLength).fill(""));
+  const [ordered, setOrdered] = useState<string[]>(
+    Array(resultsLength).fill("")
+  );
   const { showResult } = useSelector((state: AppState) => state.controls);
-  const testCompleted: [string, string, number | undefined][] = [
-    ["wall-e", "../img/nemo.png", 1],
-    ["toy story", "../img/incredibles.png", 0],
-  ];
+  const deck = useSelector((state: AppState) => state.deck) as IDeck;
+  const deckItems = deck.items;
+  // const testCompleted: [string, string, number | undefined][] = [
+  //   ["wall-e", "../img/nemo.png", 1],
+  //   ["toy story", "../img/incredibles.png", 0],
+  // ];
   useEffect(() => {
     const orderedItems = sort(items, deps);
-    setResult(orderedItems);
+    setOrdered(orderedItems);
     console.log(orderedItems);
     // eslint-disable-next-line
   }, [deps]);
   return (
     <div
       id="results"
+      data-testid="resultsList"
       className={`sliding-wrapper ${showResult ? "shown" : ""}`}
     >
       <div className="sliding bg-primary">
         <div className="container p-3">
           <h1 className="font-weight-bold text-uppercase">results</h1>
           <h4 className="text-uppercase">1 of 10 completed</h4>
-          {testCompleted.map((i) => (
-            <ResultItem key={i[1]} imagePath={i[1]} name={i[0]} score={i[2]} />
+          {ordered.map((i: string, index: number) => (
+            <ResultItem
+              key={index.toString()}
+              imagePath={""}
+              name={i}
+              score={5}
+            />
           ))}
         </div>
       </div>

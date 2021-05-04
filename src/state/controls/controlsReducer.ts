@@ -11,7 +11,6 @@ export const controlsReducer = (
   state = initialState,
   action: PayloadAction
 ) => {
-  console.log(action.type);
   switch (action.type) {
     case TOGGLE_RESULT:
       const currentState = state.showResult;
