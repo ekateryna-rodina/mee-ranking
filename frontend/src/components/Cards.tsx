@@ -22,7 +22,7 @@ const Card = (props: ICardProps) => {
   return (
     <div
       className="card rounded-card border-none shadow-lg"
-      data-testId={`item_${index}`}
+      data-testid={`item_${index}`}
       onClick={cardChosenHandler}
     >
       <img src={imageSrc} alt="" className="img-fluid" />

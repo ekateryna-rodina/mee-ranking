@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { addItemAction } from "../state/deck/deckActions";
 import { AppState } from "../state/store";
 
-interface CreateLibraryProps {
-  setStartRanking: Function;
-}
-const CreateLibrary = (props: CreateLibraryProps) => {
-  const { setStartRanking } = props;
+const CreateLibrary = () => {
   const [item, setItem] = useState("");
   const dispatch = useDispatch();
   const items = useSelector((state: AppState) => state.deck);
   const itemsLength = Object.keys(items).length;
+  const history = useHistory();
   const addToListHandler = (e: React.MouseEvent) => {
     dispatch(addItemAction({ name: item, imagePath: "" }));
     setItem("");
@@ -49,7 +47,7 @@ const CreateLibrary = (props: CreateLibraryProps) => {
       </ul>
 
       {itemsLength >= 2 && (
-        <button onClick={() => setStartRanking(true)}>Start ranking</button>
+        <button onClick={() => history.push("/ranking")}>Start ranking</button>
       )}
     </>
   );
