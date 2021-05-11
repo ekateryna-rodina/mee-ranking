@@ -15,6 +15,13 @@ body {
 .border-none {
   border: none; }
 
+#signUp form h3,
+#signUp form p {
+  color: #fff; }
+
+#logIn form h3 {
+  color: #fff; }
+
 #ranking-page {
   height: 100%; }
   #ranking-page .container {

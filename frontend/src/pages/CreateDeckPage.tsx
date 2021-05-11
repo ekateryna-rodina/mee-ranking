@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import CreateItem from "../components/CreateItem";
 import CreateTopic from "../components/CreateTopic";
+import Deck from "../components/Deck";
 import { AppState } from "../state/store";
 const CreateDeckPage = () => {
-  const items = useSelector((state: AppState) => state.deck);
-  const itemsLength = Object.keys(items).length;
   const history = useHistory();
+  const state = useSelector((state: AppState) => state.deck);
+  const { items } = state;
   return (
     <div className="row">
       <div id="add-section" className="col-md-8">
@@ -17,28 +18,15 @@ const CreateDeckPage = () => {
         </div>
       </div>
       <div id="list-section" className="col-md-4">
-        {itemsLength === 0 && (
-          <div data-testid="noItemsPlaceholder">
-            There are no items in the list
-          </div>
-        )}
-        <ul data-testid="votingItemsContainer" className="list-unstyled">
-          {Object.keys(items).map((item) => (
-            <li
-              data-testid="itemL"
-              key={item as string}
-              className="list-inline-item"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        {itemsLength >= 2 && (
-          <button onClick={() => history.push("/ranking")}>
-            Start ranking
-          </button>
-        )}
+        <Deck />
+        <button
+          className={`btn btn-primary ${
+            Object.keys(items).length < 2 ? "disabled" : ""
+          }`}
+          onClick={() => history.push("/ranking")}
+        >
+          Start ranking
+        </button>
       </div>
     </div>
   );

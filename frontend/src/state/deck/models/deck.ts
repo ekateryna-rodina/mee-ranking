@@ -1,3 +1,11 @@
+export interface ITopic {
+  id: string;
+  title: string;
+}
+
 export interface IDeck {
-  [key: string]: string;
+  topic: ITopic;
+  items: {
+    [key: string]: string;
+  };
 }

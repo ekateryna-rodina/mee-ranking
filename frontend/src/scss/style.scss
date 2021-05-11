@@ -18,6 +18,26 @@ body {
 .border-none {
   border: none;
 }
+
+// Sign Up
+#signUp form {
+  h3,
+  p {
+    color: #fff;
+  }
+}
+
+#signUp.container,
+#logIn.container {
+  // width: 30%;
+}
+
+#logIn form {
+  h3 {
+    color: #fff;
+  }
+}
+
 // RANKING PAGE
 #ranking-page {
   height: 100%;
