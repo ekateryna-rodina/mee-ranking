@@ -15,7 +15,7 @@ function App() {
           <Route exact path="/login" component={SignInPage} />
           <Route exact path="/register" component={SignUpPage} />
           <Route exact path="/create" component={CreateDeckPage} />
-          <Route exact path="/rank" component={RankingPage} />
+          <Route exact path="/ranking/:topicId" component={RankingPage} />
         </Switch>
       </Router>
     </ApolloProvider>

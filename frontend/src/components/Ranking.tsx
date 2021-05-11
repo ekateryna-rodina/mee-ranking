@@ -1,49 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ICard } from "../state/selection/models/card";
+import { IDeck } from "../state/deck/models/deck";
 import { showNewOptionsAction } from "../state/selection/selectionActions";
 import { AppState } from "../state/store";
 import ShuffledArray from "../utils/arrayHelpers";
 import Cards from "./Cards";
 import ControlButtons from "./ControlButtons";
 
-let pairsGenerator: Generator<ICard[]> | null = null;
-interface RankingProps {
-  libraryItems: ICard[];
-}
+let pairsGenerator: Generator<string[]> | null = null;
 
-function generator(libraryItems: ICard[]) {
-  let init = [];
-  for (let i = 0; i < libraryItems.length; i++) {
-    for (let j = i + 1; j < libraryItems.length; j++) {
-      init.push([libraryItems[i], libraryItems[j]]);
+function generator(deckItems: string[]) {
+  let counter = 0;
+  let init: string[][] = [];
+  for (let i = 0; i < deckItems.length; i++) {
+    for (let j = i + 1; j < deckItems.length; j++) {
+      init.push([deckItems[i], deckItems[j]]);
     }
   }
-  const shuffledItems = new ShuffledArray(init).shuffle() || [];
+  const shuffledItems: string[][] = new ShuffledArray(init).shuffle() || [];
   return (function* () {
     for (let k = 0; k < shuffledItems.length; k++) {
+      counter++;
+      console.log(`pair # ${counter}`);
       yield shuffledItems[k];
     }
   })();
 }
 
-const Ranking = (props: RankingProps) => {
-  const { libraryItems } = props;
-  console.log("this is items");
-  console.log(libraryItems);
+const Ranking = () => {
+  const [topic, setTopic] = useState<string>("");
+  const [allItems, setAllItems] = useState<{}>({});
   const selection = useSelector((state: AppState) => state.selection);
   const ranking = useSelector((state: AppState) => state.ranking);
   const { rankingMap } = ranking;
-  const { options } = selection;
+  const { deck } = selection;
   const dispatch = useDispatch();
-
-  pairsGenerator = pairsGenerator ?? generator(libraryItems);
-
   const getNextItems = () => {
     const pair: string[] = pairsGenerator?.next().value as string[];
     return pair;
   };
 
+  useEffect(() => {
+    if (!deck) return;
+    setTopic((deck as IDeck).topic.title);
+    setAllItems((deck as IDeck).items);
+    // const title = (deck as IDeck)?.topic.title;
+    // topicName.current = title;
+  }, [deck]);
+  useEffect(() => {
+    if (allItems && Object.keys(allItems).length) {
+      pairsGenerator = pairsGenerator ?? generator(Object.keys(allItems));
+      const pair = getNextItems();
+      dispatch(showNewOptionsAction(pair));
+    }
+    // eslint-disable-next-line
+  }, [allItems]);
   useEffect(() => {
     const pair = getNextItems();
     dispatch(showNewOptionsAction(pair));
@@ -56,8 +67,8 @@ const Ranking = (props: RankingProps) => {
     >
       <div className="container">
         <div id="ranking">
-          <h2 className="text-uppercase mb-5">Which pixar movie is better?</h2>
-          <Cards items={options} />
+          <h2 className="text-uppercase mb-5">{topic}</h2>
+          <Cards />
         </div>
         <div
           id="controls-section"
@@ -69,7 +80,6 @@ const Ranking = (props: RankingProps) => {
       </div>
     </div>
   );
-  // return <div>{options && <Cards items={options} />}</div>;
 };
 
 export default Ranking;

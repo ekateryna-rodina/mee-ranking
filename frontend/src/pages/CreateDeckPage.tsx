@@ -4,11 +4,12 @@ import { useHistory } from "react-router-dom";
 import CreateItem from "../components/CreateItem";
 import CreateTopic from "../components/CreateTopic";
 import Deck from "../components/Deck";
+import { IDeck } from "../state/deck/models/deck";
 import { AppState } from "../state/store";
 const CreateDeckPage = () => {
   const history = useHistory();
-  const state = useSelector((state: AppState) => state.deck);
-  const { items } = state;
+  const state = useSelector((state: AppState) => state.deck) as IDeck;
+  const { items, topic } = state;
   return (
     <div className="row">
       <div id="add-section" className="col-md-8">
@@ -23,7 +24,7 @@ const CreateDeckPage = () => {
           className={`btn btn-primary ${
             Object.keys(items).length < 2 ? "disabled" : ""
           }`}
-          onClick={() => history.push("/ranking")}
+          onClick={() => history.push(`/ranking/${topic.id}`)}
         >
           Start ranking
         </button>
