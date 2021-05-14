@@ -1,13 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import IRanking from "../state/ranking/models/result";
+import { ISelection } from "../state/selection/models/selection";
+import { AppState } from "../state/store";
+import CloudImage from "./CloudImage";
 
 interface ResultItemProps {
   name: string;
-  imagePath: string;
-  score?: number;
+  ranked: boolean;
 }
 const ResultItem = (props: ResultItemProps) => {
-  const { name, imagePath, score } = props;
-  const imageSrc = require("../img/nemo.png").default;
+  const { name, ranked } = props;
+  const { deck } = useSelector(
+    (state: AppState) => state.selection
+  ) as ISelection;
+  const { rankingMap } = useSelector(
+    (state: AppState) => state.ranking
+  ) as IRanking;
+  const score =
+    ranked && rankingMap && rankingMap[name]
+      ? Object.values(rankingMap[name]).reduce((a, b) => a + b)
+      : "-";
   return (
     <div
       id="resultItem"
@@ -15,12 +28,11 @@ const ResultItem = (props: ResultItemProps) => {
       className="d-flex justify-content-between align-items-center bg-white rounded mb-2 px-1"
     >
       <div className="d-flex d-flex-inline justify-content-start align-items-center">
-        <img
-          src={imageSrc}
-          width="30"
-          height="30"
-          alt=""
+        <CloudImage
           className="rounded-circle mx-1"
+          imageId={deck?.items[name]}
+          height={30}
+          width={30}
         />
         <span className="text-uppercase">{name}</span>
       </div>

@@ -1,14 +1,16 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { UPDATE_RANKING_MAP } from "./models/actions";
+import { UPDATE_ORDERED_ITEMS, UPDATE_RANKING_MAP } from "./models/actions";
 import { IRankingMap } from "./models/rankingMap";
+import IRanking from "./models/result";
 import { IVote } from "./models/vote";
 let map: IRankingMap = {};
+// dependecies of winner and loosers
 let deps: string[][] = [];
-let items: string[] = [];
-const initialState = {
+let orderedItems: string[] = [];
+const initialState: IRanking = {
   rankingMap: map,
-  items,
   deps,
+  orderedItems,
 };
 
 export const rankingReducer = (
@@ -23,12 +25,17 @@ export const rankingReducer = (
         [winner]: { ...state.rankingMap[winner], [looser]: 1 },
         [looser]: { ...state.rankingMap[looser], [winner]: 0 },
       };
-      const items = newRankingMap ? Object.keys(newRankingMap) : [];
-      state.deps.push([looser, winner]);
-      return {
+      const newDeps: string[] = [looser, winner];
+      const newState = {
         ...state,
         rankingMap: newRankingMap,
-        items,
+        deps: [...state.deps, newDeps],
+      };
+      return newState;
+    case UPDATE_ORDERED_ITEMS:
+      return {
+        ...state,
+        orderedItems: action.payload,
       };
     default:
       return state;

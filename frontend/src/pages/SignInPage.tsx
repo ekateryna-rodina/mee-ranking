@@ -23,7 +23,6 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
-    console.log("here");
     if (error) {
       console.log(error.message);
     }

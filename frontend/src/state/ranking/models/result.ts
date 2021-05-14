@@ -1,5 +1,7 @@
-export default interface IRankingResult {
-  name: string;
-  imagePath: string;
-  score: number;
+import { IRankingMap } from "./rankingMap";
+
+export default interface IRanking {
+  rankingMap: IRankingMap;
+  deps: string[][];
+  orderedItems: string[];
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { updateRankingMapAction } from "../state/ranking/rankingActions";
 import { ISelection } from "../state/selection/models/selection";
 import { AppState } from "../state/store";
 import CloudImage from "./CloudImage";
@@ -22,7 +23,7 @@ const Card = (props: ICardProps) => {
       data-testid={`item_${index}`}
       onClick={cardChosenHandler}
     >
-      <CloudImage publicId={imageId} className={"img-fluid"} />
+      <CloudImage imageId={imageId} className={"img-fluid"} />
       <div className="card-body text-center">
         <div className="card-title">
           <h3 className="display-8 text-uppercase">{name}</h3>
@@ -38,10 +39,11 @@ const Cards = () => {
 
   const dispatch = useDispatch();
   const setItemChosenHandler = (index: number) => {
-    // console.log(index);
-    // const winner = items[index].name;
-    // const looser = items[Number(Boolean(!index))].name;
-    // dispatch(updateRankingMapAction({ winner, looser }));
+    const winner = options && options[index];
+    const looser = options && options[Number(Boolean(!index))];
+    if (winner && looser) {
+      dispatch(updateRankingMapAction({ winner, looser }));
+    }
   };
   useEffect(() => {
     if (deck?.items) {

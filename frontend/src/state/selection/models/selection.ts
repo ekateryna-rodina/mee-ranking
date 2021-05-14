@@ -1,7 +1,8 @@
 import { IDeck } from "../../deck/models/deck";
 
 export interface ISelection {
+  totalCount: number;
   options: string[] | null;
-  index: number;
+  counter: number;
   deck: IDeck;
 }

@@ -1,9 +1,9 @@
 // idea is to keep track of nodes which loose to other nodes
 // remove node which looses to every other and put it in ordered
 // remove all its dependencies
-export function sort(jobs: Array<string>, deps: string[][]) {
+export function sort(items: Array<string>, deps: string[][]) {
   // Write your code here.
-  const rankGraph = createRankGraph(jobs, deps);
+  const rankGraph = createRankGraph(items, deps);
   return getOrderedItems(rankGraph);
 }
 

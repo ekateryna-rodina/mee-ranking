@@ -217,7 +217,6 @@ const resolvers = {
       if (!isValid) {
         throw new Error("Bad request");
       }
-      console.log(topic.responderIds);
       if (
         topic.responderIds.find((id) => {
           id?.toString() === userId.toString();
@@ -246,7 +245,6 @@ const resolvers = {
       };
 
       const result = await db.collection("Items").insert(item);
-      console.log(result.ops[0]);
       return result.ops[0];
     },
     updateItem: async (_, { itemId, name, image }, { db, user }) => {
@@ -296,7 +294,6 @@ const resolvers = {
       );
     },
     items: async ({ _id }, __, { db }) => {
-      console.log(_id);
       return db
         .collection("Items")
         .find({ topicId: ObjectId(_id) })

@@ -55,9 +55,7 @@ const CreateItem = () => {
     if (itemInfo.file) {
       imageId = await submitFileToStorage();
     }
-    console.log(topicId);
-    console.log(itemInfo.name);
-    console.log(imageId);
+
     const variables = {
       topicId,
       name: itemInfo.name,
@@ -73,7 +71,6 @@ const CreateItem = () => {
   };
   useEffect(() => {
     if (error) {
-      console.log("error");
       console.log(`Items creation failed with error message ${error.message}`);
     }
     if (data) {

@@ -1,6 +1,27 @@
 import { ICard } from "../state/selection/models/card";
 
-class ShuffledArray extends Array {
+const numberOfItemsPerSelection = 2;
+const factorial = (n: number) => {
+  let factorial = 1;
+  if (n === 0 || n === 1) return factorial;
+
+  for (let i = n; i >= 1; i--) {
+    factorial = factorial * i;
+  }
+  return factorial;
+};
+
+export const getTotalCountOfCombinations = (itemsLength: number) => {
+  // find total number of combinations using formula
+  // n = itemsLength!/(2!(itemsLength - 2)!)
+  const count =
+    factorial(itemsLength) /
+    (factorial(numberOfItemsPerSelection) *
+      factorial(itemsLength - numberOfItemsPerSelection));
+  return count;
+};
+
+export class ShuffledArray extends Array {
   items: string[][];
   constructor(items: string[][]) {
     super();
@@ -25,4 +46,4 @@ class ShuffledArray extends Array {
   }
 }
 
-export default ShuffledArray;
+// export default ShuffledArray;

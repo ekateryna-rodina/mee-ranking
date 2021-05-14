@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { IDeck } from "../state/deck/models/deck";
+import { useDispatch, useSelector } from "react-redux";
+import IRanking from "../state/ranking/models/result";
+import { updateOrderedItemsAction } from "../state/ranking/rankingActions";
+import { ISelection } from "../state/selection/models/selection";
 import { AppState } from "../state/store";
 import { sort } from "../utils/topologicalSort";
-import ResultItem from "./ResultItem";
+import OrderedList from "./OrderedList";
 
 const Result = () => {
-  const state = useSelector((state: AppState) => state.ranking);
-  const { rankingMap, items, deps } = state;
-  const resultsLength = rankingMap ? Object.keys(rankingMap).length : 0;
-  const [ordered, setOrdered] = useState<string[]>(
-    Array(resultsLength).fill("")
-  );
+  const { deps, orderedItems, rankingMap } = useSelector(
+    (state: AppState) => state.ranking
+  ) as IRanking;
+  const {
+    deck: { items },
+    totalCount,
+    counter,
+  } = useSelector((state: AppState) => state.selection) as ISelection;
+  const allItems = Object.keys(items);
+  const dispatch = useDispatch();
   const { showResult } = useSelector((state: AppState) => state.controls);
-  const deck = useSelector((state: AppState) => state.deck) as IDeck;
-  const deckItems = deck.items;
-  // const testCompleted: [string, string, number | undefined][] = [
-  //   ["wall-e", "../img/nemo.png", 1],
-  //   ["toy story", "../img/incredibles.png", 0],
-  // ];
+  const [ranked, setRanked] = useState<string[]>([]);
+  const [unRanked, setUnRanked] = useState<string[]>([]);
   useEffect(() => {
-    const orderedItems = sort(items, deps);
-    setOrdered(orderedItems);
-    console.log(orderedItems);
+    setUnRanked(allItems.filter((i) => !orderedItems.includes(i)));
+    // eslint-disable-next-line
+  }, [items]);
+  useEffect(() => {
+    const rankingResult = sort(Object.keys(rankingMap), deps);
+    dispatch(updateOrderedItemsAction(rankingResult));
     // eslint-disable-next-line
   }, [deps]);
+  useEffect(() => {
+    setRanked(orderedItems);
+    setUnRanked(allItems.filter((i) => !orderedItems.includes(i)));
+    // eslint-disable-next-line
+  }, [orderedItems]);
+
   return (
     <div
       id="results"
@@ -34,26 +45,23 @@ const Result = () => {
       <div className="sliding bg-primary">
         <div className="container p-3">
           <h1 className="font-weight-bold text-uppercase">results</h1>
-          <h4 className="text-uppercase">1 of 10 completed</h4>
-          {ordered.map((i: string, index: number) => (
-            <ResultItem
-              key={index.toString()}
-              imagePath={""}
-              name={i}
-              score={5}
-            />
-          ))}
+          {ranked.length > 0 && (
+            <div>
+              <h4 className="text-uppercase">
+                {counter} of {totalCount} completed
+              </h4>
+              <OrderedList items={ranked} ranked={true} />
+            </div>
+          )}
+          {unRanked.length > 0 && (
+            <div>
+              <h4 className="text-uppercase">not ranked yet</h4>
+              <OrderedList items={unRanked} ranked={false} />
+            </div>
+          )}
         </div>
       </div>
     </div>
-    // <div data-testid="resultsList">
-    //   {result[0] &&
-    //     result.map((item: string | null, i: number) => (
-    //       <p key={`${item}_${i}`} data-testid="item-test-id">
-    //         {item}
-    //       </p>
-    //     ))}
-    // </div>
   );
 };
 

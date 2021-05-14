@@ -1,5 +1,6 @@
 import { IItem } from "./item";
 
+export const INIT_ALL = "INIT_ALL";
 export const ADD_ITEM = "ADD_ITEM";
 export const CREATE_TOPIC = "CREATE_TOPIC";
 

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IDeck } from "../state/deck/models/deck";
-import { showNewOptionsAction } from "../state/selection/selectionActions";
+import {
+  showNewOptionsAction,
+  updateCurrentCounterAction,
+} from "../state/selection/selectionActions";
 import { AppState } from "../state/store";
-import ShuffledArray from "../utils/arrayHelpers";
+import { ShuffledArray } from "../utils/arrayHelpers";
 import Cards from "./Cards";
 import ControlButtons from "./ControlButtons";
 
@@ -18,6 +21,7 @@ function generator(deckItems: string[]) {
     }
   }
   const shuffledItems: string[][] = new ShuffledArray(init).shuffle() || [];
+
   return (function* () {
     for (let k = 0; k < shuffledItems.length; k++) {
       counter++;
@@ -42,10 +46,9 @@ const Ranking = () => {
 
   useEffect(() => {
     if (!deck) return;
+    const { items } = deck as IDeck;
     setTopic((deck as IDeck).topic.title);
-    setAllItems((deck as IDeck).items);
-    // const title = (deck as IDeck)?.topic.title;
-    // topicName.current = title;
+    setAllItems(items);
   }, [deck]);
   useEffect(() => {
     if (allItems && Object.keys(allItems).length) {
@@ -56,8 +59,10 @@ const Ranking = () => {
     // eslint-disable-next-line
   }, [allItems]);
   useEffect(() => {
+    if (Object.keys(rankingMap).length === 0) return;
     const pair = getNextItems();
     dispatch(showNewOptionsAction(pair));
+    dispatch(updateCurrentCounterAction());
     // eslint-disable-next-line
   }, [rankingMap]);
   return (

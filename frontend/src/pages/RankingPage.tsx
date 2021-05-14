@@ -3,8 +3,11 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Ranking from "../components/Ranking";
 import Result from "../components/Result";
-import { IDeck } from "../state/deck/models/deck";
-import { loadDeckInfoAction } from "../state/selection/selectionActions";
+import {
+  loadDeckInfoAction,
+  setTotalCountAction,
+} from "../state/selection/selectionActions";
+import { getTotalCountOfCombinations } from "../utils/arrayHelpers";
 
 const GET_TOPIC_BY_ID_QUERY = gql`
   query getTopicById($topicId: ID!) {
@@ -39,8 +42,13 @@ const RankingPage = (props: any) => {
         const { name, image } = item;
         itemsObj[name] = image;
       });
-      const deck: IDeck = { topic: { id, title }, items: itemsObj };
-      dispatch(loadDeckInfoAction(deck));
+
+      dispatch(loadDeckInfoAction({ topic: { id, title }, items: itemsObj }));
+      dispatch(
+        setTotalCountAction(
+          getTotalCountOfCombinations(Object.keys(items).length)
+        )
+      );
     }
     // eslint-disable-next-line
   }, [data, error]);
