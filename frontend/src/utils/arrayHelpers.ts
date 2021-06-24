@@ -45,5 +45,3 @@ export class ShuffledArray extends Array {
     return this.items;
   }
 }
-
-// export default ShuffledArray;

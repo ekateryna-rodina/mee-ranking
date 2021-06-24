@@ -33,7 +33,7 @@
     "eject": "react-scripts eject",
     "clearjest": "jest --clearCache",
     "test": "jest --watchAll --detectOpenHandles",
-    "scss": "node-sass -rw --watch src/scss -o public/css"
+    "scss": "node-sass -rw --watch src/scss --recursive -o public/css"
   },
   "eslintConfig": {
     "extends": [

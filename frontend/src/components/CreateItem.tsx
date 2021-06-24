@@ -75,7 +75,7 @@ const CreateItem = () => {
     }
     if (data) {
       const { name, image } = data.createItem;
-      dispatch(addItemAction({ name, imagePath: image }));
+      dispatch(addItemAction({ name, imagePath: image, settings: {} }));
       setItemInfo({ ...itemInfo, name: "" });
     }
     // eslint-disable-next-line

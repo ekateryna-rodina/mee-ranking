@@ -1,0 +1,62 @@
+.cardTitlesContainer {
+  background: #161f2e;
+  border: 1px solid #2f3c51;
+  border-radius: 0.2em;
+  height: 300px;
+  // overflow-y: auto;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+
+  p {
+    text-align: center;
+  }
+}
+.searchAddContainer {
+  // position: sticky;
+}
+.searchAddTitle {
+  background-color: #1b283b;
+  color: #455469;
+  width: 85%;
+  padding: 0.2em;
+  padding-left: 10px;
+  border-radius: 0.2em;
+  border: 0;
+  -webkit-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -ms-border-radius: 0.2em;
+  -o-border-radius: 0.2em;
+}
+
+.squarePlusButton {
+  height: 30.38px;
+  border-radius: 0.2em;
+  width: 30.38px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.plus {
+  font-size: 1.8rem;
+  color: #1b283b;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cardTitlesList {
+  position: relative;
+  overflow-y: scroll;
+  height: 80%;
+
+  li {
+    color: #a5a8af;
+    list-style-type: none;
+  }
+  // overflow-y: scroll;
+  // max-height: 230px;
+}

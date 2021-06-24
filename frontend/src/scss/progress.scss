@@ -7,6 +7,12 @@ progress {
 progress::-moz-progress-bar {
   border-radius: 100px;
   background: linear-gradient(30, rgba(33, 177, 89, 0.1), rgba(33, 177, 89, 1));
+
+  -webkit-transition: width 0.5s;
+  -moz-transition: width 0.5s;
+  -ms-transition: width 0.5s;
+  -o-transition: width 0.5s;
+  transition: width 0.5s;
 }
 
 progress::-webkit-progress-bar {

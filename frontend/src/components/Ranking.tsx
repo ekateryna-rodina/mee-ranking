@@ -9,6 +9,7 @@ import { AppState } from "../state/store";
 import { ShuffledArray } from "../utils/arrayHelpers";
 import Cards from "./Cards";
 import ControlButtons from "./ControlButtons";
+import Progress from "./Progress";
 
 let pairsGenerator: Generator<string[]> | null = null;
 
@@ -79,7 +80,7 @@ const Ranking = () => {
           id="controls-section"
           className="d-flex justify-content-between align-items-center mt-5"
         >
-          <progress max="100" value="85"></progress>
+          <Progress />
           <ControlButtons />
         </div>
       </div>
