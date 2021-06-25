@@ -1,3 +1,5 @@
+import { IItem } from "./item";
+
 export interface ITopic {
   id: string;
   title: string;
@@ -6,6 +8,6 @@ export interface ITopic {
 export interface IDeck {
   topic: ITopic;
   items: {
-    [key: string]: string;
+    [key: string]: IItem;
   };
 }

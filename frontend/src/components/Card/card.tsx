@@ -1,46 +1,26 @@
 import React from "react";
+import { ICardLayoutSettings } from "../../state/deck/models/item";
 
-const RATIO = 1.62;
+const CARD_SIZE_RATIO = 1.62;
+// const CARD_BORDER_RADIUS_RATIO =
 // TODO: move to the state
-export enum LabelPosition {
-  Top,
-  Center,
-  Bottom,
-  None,
-}
-
-export enum ImageStyle {
-  Flat,
-  Parallax,
-  None,
-}
-
-export interface ICardLayoutSettings {
-  labelStyle: {
-    color: boolean;
-    transparency: boolean;
-    position: LabelPosition;
-  };
-  imageStyle: ImageStyle;
-}
 
 interface ICardProps {
   width: number;
-  isLayout: boolean;
-  settings: ICardLayoutSettings;
+  settings?: ICardLayoutSettings;
 }
 
 const Card = (props: ICardProps) => {
-  const { width, isLayout, settings } = props;
-  const height = width * RATIO;
+  const { width, settings } = props;
+  const height = width * CARD_SIZE_RATIO;
 
   return (
     <div
       style={{
         width,
         height,
-        backgroundColor: "bisque",
-        borderRadius: "0.2em",
+        backgroundColor: "black",
+        borderRadius: "1.2em",
       }}
     ></div>
   );
